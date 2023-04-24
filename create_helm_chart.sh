@@ -11,7 +11,7 @@ CHART_HOME=/opt/homebrew/bin
 #$CHART_HOME/helm create $CHART_NAME
 # replace the image name by your own image name
 sed -i .bak "s/repository: <repo_url>/repository: $REPO\/$ORG_NAME/g" $CHART_NAME/values.$DEPLOY_ENV.yaml
-sed -i .bak "s/0.1.0/$CHART_VERSION/g" $CHART_NAME/values.$DEPLOY_ENV.yaml
-sed -i .bak "s/0.1.0/$CHART_VERSION/g" $CHART_NAME/Chart.yaml
+sed -i .bak "s/0.0.1/$CHART_VERSION/g" $CHART_NAME/values.$DEPLOY_ENV.yaml
+sed -i .bak "s/0.0.1/$CHART_VERSION/g" $CHART_NAME/Chart.yaml
 $CHART_HOME/helm template --values $CHART_NAME/values.$DEPLOY_ENV.yaml $CHART_NAME
 $CHART_HOME/helm upgrade -i $CHART_NAME -f $CHART_NAME/values.$DEPLOY_ENV.yaml ./$CHART_NAME -n $PROJECT_NAME
