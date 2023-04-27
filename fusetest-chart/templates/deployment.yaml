@@ -33,6 +33,27 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env: 
+            - name: TWITTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: twitter_key
+            - name: TWITTER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: twitter_secret
+            - name: TWITTER_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: twitter_access_token
+            - name: TWITTER_ACCESS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: twitter_access_secret
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
