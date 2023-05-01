@@ -56,6 +56,9 @@ spec:
                   key: twitter_access_secret
           ports:
             - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: rest
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
