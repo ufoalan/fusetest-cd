@@ -1,0 +1,91 @@
+# Default values for salesforcetest-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: <repo_url>/salesforcetest
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+release:
+  service_name: salesforcetest
+  project_name: fusetest
+  platform: prod
+  salesforce_clientId: AgAcpiZq2+NcMp7+Pk38I8quDV+VZwuXzDP8fiV4F/6ZRfRLgCzGBcRw8xdqDmqYkk+pA3pfJ7bJsXuVoyfx4TFxlNST/6wLMpQTlmWTgOTMuouZ6G7ZhvVzugPqYVw+7uOqZbUsVH36mFwIzaeaXddACXMmluqf6gVYgMfkKR6Vq72SMGVykcKNqA9NyEPGl2CPTSLo7mrtGiBHXiamkE0iHQ4i1N/QdtugA+YkQ5jeGu2xK2c4qvqAOhJ8ktzKaAuFit2sLtQoTYtphi3FgK0wjTuntFTo8aA+fbb7TFvsQf1Bp30/1co2ee7erNMtwbg8aBNOnCjNeaG+agDh3AyTWV0VnZj9IAh6WZnHKt9Wq76YD/Ti3cILzifqEvwQuNcI0TWx9V7vyWhBxwb/jtGTV+27BD5QKa54OClsrXLGJUQ48DG15dMZkwgJss8bWzlwvPToYbhCAj4Et2a9/u+5+BqDoJbyCCa5PxNPvn7oDKrABZTItX2YPdA3PT6xLnTEvuAwaLCL+c3An+SUhDMB7m5tTxKrNBPjBTMoXDlWBKhIxz/4uPsYtuSlR+zUmgMC3gKKUG/dcQgJWore7oJg+AFfR3Eq7q6VOdKfzWO+B3lvGZiTejuOcVoFH2B3t61Di0ulKukYC9gXfmIfIjhesKbz2cveUHEg9SaBHGKTd9NcMOcZMEuDnsfrR1V4WIMBfF7idU11quZvDU++N9i7LEA2Kxu5xeBOQMxNKPWVWSRna9eXNgK5PDQIjOic2fN1WRgc22HBxa8FlrkJ1EHg6zS+sIKo9nmmg0pWnOE1JqeEs/VG
+  salesforce_secret: AgCW3hInV89Y4EnCvgH+WhFw47sDUIvn47WAy4/xlAiNqoUPWxtaXQ2cRG8m+TNpYg21UdJ1uNFJYby159TPS3jbzJQ1w5mBz0MsvnN3cjbUGfSyw8JkA/l07E6c0UinJePeZQw018D60Sfegq4i6JoEa1F6TgDSXqh3EA1bUfj6oq7kf7ldsTawpoO79wjNu8/CfB6DzR9jYO2lmr1heBX1wprWoBSVY0XU3FW7DTZ7kcBufOkkLZDEnI6Uic1RnxFJra+OsM9ggsHFKLeLi2Ofr1L6CotQudzxXBow5cKrv8Cs6N9A+QfuhOJ4U2lHy/dg/KyJMP6vvpPLeTIgr857pJofF9oDL71SgHqxS/iPu2SFLsxqedXiER7F4zE+AcDRN29PJPNobZVMVIEKb4UcWEdtBtUSEXyUNwhNLGvevIOVRRd9sLXM0bG9dWyfJzAqBrOcNzUSROEh4J0VWkbaeCNrHLVDW5cfalY4Z1oLunWNWfcH4aFy207NqXriM9hj7gtOD9EGPtJ059XPki+YUcI7wsUv+tDN0kKQ9Uf5QOwRsuJoFmL2SFbTFMxgxWLYkN5jysxhXQPnQR91/JjkiqD1hQf+/7D3kvrOExFiiH7h/3x7ufsdrsR3VEI+JZqQl8p6RxihithNgjnhfa+oaJfREAmKGcpXUrFCd+DIE+USxwoYnYHB/IXPe1ZLpwE5wNIdiCC4d0s8QyI8b6bL+hQFczzB4k9Gq2Y6n331pt1QAH6oruWJuIRkwGJcp9+suKmngingXEx9DafcSwkC
+  salesforce_refresh_token: AgAIdRBgopvF3AgXTjO7nUkI4a8M8H1P/btSFyNWIUZtzkTM8HoIlHGa/HHZt1EEf6c6xs+UbXainK78wsVO8/2NMjjCkjI5vOwnl+AoUZBzoXeqYYxZDNn88L6E54fINw0CF9GwlSvTsy5OtyOYmjRN59dUvbFmxDi/cyRYu8CKIlUbdUWmrDrry2SctDD2tdF4yGEddj11QuBV1XXTRi6nW90KEwRzGLdveWgKbVhI41PlFUF7aglu34LXPbJ9CyMsNDosYCYUKu6bn60EmIC55oq6dUdnJiMHxhRnI9axFJjsORDWfM2RDII6RjPpTXnmxHz8gMd/cift5zPlMDyjw/ga0vqL4zJ40lnUfZupz3cZuQmG0fEt7L3Sl7pt9tAwRmzgFjVfY5AzY7QOSc/nROAT1fRkVCp4TF32FiCu9lQbyZR8PRhjkQHJy3czZrJ/IKUR8mrnUksbch49YzI//svmzFvZwzeClHafTGwlcME7vZccbae+aIG8W9DeNBHKh0EVHQh4VLpUMwyepYy9XeF1hIWukNHfG6CCnoNS6h+v0xuSxUCIwdxE7Lm/aHgzVDU7/kbeXOO8K4lX8xtXt7P578FRv0Jn/EKInAoPV3XOR62LLibVNuChLxfMLpMT0lM9y3jyjcskoJk9HeQAiklsKP8XQMi+gTb+hOHcNqWCRB0pO9yfe3Df2TVtqqXR9yaGSRV7WMjdIXExNHRzPGvCVYcRcv5zZS7RHJp8f4t/9oRXc22S8q9qPc9Oqy+iNZOGG8YKzGBkO9N23IVFmYKowmRRwmw0iYv4cKuU1PzlDHZuadY=
+  salesforce_type: REFRESH_TOKEN
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
